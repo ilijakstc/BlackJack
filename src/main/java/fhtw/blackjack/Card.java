@@ -10,15 +10,15 @@ public class Card {
     }
 
     public CardValue getValue() {
-        return value;
+        return this.value;
     }
 
     public CardSuit getSuit() {
-        return suit;
+        return this.suit;
     }
 
     @Override
     public String toString() {
-        return value + " of " + suit;
+        return this.suit + " - " + this.value;
     }
 }

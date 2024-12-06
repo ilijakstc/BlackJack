@@ -29,10 +29,18 @@ public abstract class Player {
     }
 
     public List<Card> getHandCards() {
-        return handCards;
+        return this.handCards;
     }
 
     public void setHandCards(List<Card> handCards) {
         this.handCards = handCards;
+    }
+
+    public String handCardstoString(){
+        return this.handCards.toString();
+    }
+
+    public String cardSumtoString(){
+        return String.valueOf(calculateCardSum());
     }
 }
