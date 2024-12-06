@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<AnchorPane style="-fx-background-color: darkgreen;">
+    <!--Section Dealer-->
+    <VBox prefWidth="700" prefHeight="220" style="-fx-background-color: lightgray; -fx-padding: 12px" layoutX="32" layoutY="32" spacing="12">
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold">Dealer</Label>
+        <TextArea prefWidth="480.0" prefHeight="120.0" editable="false" wrapText="true" text="Dealer Cards"/>
+        <HBox alignment="CENTER_RIGHT">
+            <TextArea prefWidth="100" prefHeight="30"/>
+        </HBox>
+    </VBox>
+
+    <!--Section Player-->
+    <VBox prefWidth="700" prefHeight="220" style="-fx-background-color: lightgray; -fx-padding: 12px" layoutX="32" layoutY="280" spacing="12">
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold">Player</Label>
+        <TextArea prefWidth="480.0" prefHeight="120.0" editable="false" wrapText="true" text="Player Cards"/>
+        <HBox alignment="CENTER_RIGHT">
+            <TextArea prefWidth="100" prefHeight="30"/>
+        </HBox>
+    </VBox>
+
+</AnchorPane>

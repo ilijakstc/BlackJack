@@ -6,10 +6,15 @@ public abstract class Player {
     String id;
     List<Card> handCards;
 
+    public Player(String id, List<Card> handCards){
+        this.id = id;
+        this.handCards = handCards;
+    }
+
     public int calculateCardSum(){
         int sum = 0;
         for(Card handCard : handCards){
-            //calculate the sum of all cards that are in hand of the player
+            sum = sum + handCard.getValue().getValue();
         }
 
         return sum;
@@ -30,5 +35,4 @@ public abstract class Player {
     public void setHandCards(List<Card> handCards) {
         this.handCards = handCards;
     }
-
 }
