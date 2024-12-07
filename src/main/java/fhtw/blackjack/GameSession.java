@@ -32,7 +32,7 @@ public class GameSession {
     public GameSession() {
         this.deck = new Deck();
         this.dealer = new Dealer(new ArrayList<>(), deck);
-        this.player = new HumanPlayer("Player1", new ArrayList<>());
+        this.player = new HumanPlayer("Player1", new ArrayList<>(), this);
 
         dealer.addPlayer(player);
         dealer.addPlayer(dealer);
@@ -54,6 +54,18 @@ public class GameSession {
      */
     public HumanPlayer getPlayer() {
         return this.player;
+    }
+
+    /**
+     * Returns the deck of cards used in the current game session.
+     *
+     * The deck contains all the remaining cards that have not yet been dealt
+     * to the players or the dealer. It is used to draw new cards during the game.
+     *
+     * @return The {@link Deck} object representing the current game's deck of cards.
+     */
+    public Deck getDeck() {
+        return deck;
     }
 
     /**

@@ -1,5 +1,9 @@
 package fhtw.blackjack;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+
+import java.awt.event.ActionEvent;
 import java.util.List;
 
 /**
@@ -14,6 +18,7 @@ public class HumanPlayer extends Player{
      * When {@code true}, the player will no longer receive additional cards.
      */
     public boolean hasStood;
+    private GameSession gameSession;
 
     /**
      * Constructs a new human player with a specified player ID and an initial hand of cards.
@@ -21,13 +26,31 @@ public class HumanPlayer extends Player{
      * @param id The unique identifier for the player (e.g., the player's name or "Player1").
      * @param handCards The list of initial hand cards assigned to the player (typically empty at the start of the game).
      */
-    public HumanPlayer(String id, List<Card> handCards) {
+    public HumanPlayer(String id, List<Card> handCards, GameSession gameSession) {
         super(id, handCards);
+        this.gameSession = gameSession;
     }
 
-    //public Card hit(){
-        //return cards
-    //}
+    /**
+     * Allows the player to draw a card from the deck and adds it to their hand.
+     *
+     * This method retrieves the current deck from the {@link GameSession}
+     * and draws the top card if the deck is not empty.
+     * The drawn card is added to the player's hand, updating their list of hand cards.
+     *
+     * If the deck is empty, no card is drawn, and no changes are made to the player's hand.
+     *
+     * @see GameSession#getDeck()
+     * @see GameSession#getPlayer()
+     */
+    public void hit(){
+        Deck deck = gameSession.getDeck();
+        HumanPlayer player = gameSession.getPlayer();
+        if(!deck.getDeck().isEmpty()){
+            Card card = deck.getDeck().remove(0);
+            player.getHandCards().add(card);
+        }
+    }
 
     /**
      * Sets the player's status to "stand", indicating that they do not wish to receive any more cards.

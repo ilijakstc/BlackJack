@@ -1,6 +1,7 @@
 package fhtw.blackjack;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 
 import javax.swing.*;
@@ -37,6 +38,9 @@ public class GuiController {
     @FXML
     private TextArea playerCardSumTextArea;
 
+    @FXML
+    private Button hitButton;
+
     /**
      * The current game session, which manages the dealer, player, and deck.
      */
@@ -49,11 +53,27 @@ public class GuiController {
      */
     @FXML
     public void initialize(){
-        System.out.println("Habe gestartet");
         gameSession = new GameSession();
 
         gameSession.startGame();
         updateDealerCards();
+        updatePlayerCards();
+    }
+
+    /**
+     * Handles the action when the "HIT" button is pressed.
+     *
+     * This method allows the player to draw a new card from the deck.
+     * It calls the {@link HumanPlayer#hit()} method to add a card to the player's hand.
+     * After drawing a card, the player's hand is updated in the user interface.
+     *
+     * The method is triggered by the "HIT" button press event, typically connected
+     * through the FXML onAction attribute.
+     *
+     * @see HumanPlayer#hit()
+     */
+    public void hitButtonPressed(){
+        gameSession.getPlayer().hit();
         updatePlayerCards();
     }
 
