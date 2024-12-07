@@ -33,6 +33,18 @@ The *BlackJack - Game* is a card game implemented in Java. It adheres to the cor
 - **Card**:  
   Defines a playing card with a value and suit.
 
+- **HumanPlayer**
+  Represents a human-controlled player in the game.
+
+- **CardSuit**
+  Represents the suit of a card (Hearts, Spades, Diamonds, or Clubs).
+
+- **CardValue**
+  Represents the value of a card (2, 3, 4, ..., King, Ace) and its corresponding Blackjack value.
+
+- **GuiController**
+  Controls the graphical user interface (GUI) of the game using JavaFX.
+
 #### 2. GUI
 - **GUIController**:  
   Manages graphical interface updates for displaying game state and results.
