@@ -43,6 +43,12 @@ public enum CardSuit {
      *
      * @return The name of the suit, e.g., "Heart", "Spade", "Diamond", or "Club".
      */
+    /**
+     * Method description.
+     *
+     * @param args Description of parameters.
+     * @return Description of return value.
+     */
     public String getSuit(){
         return suit;
     }

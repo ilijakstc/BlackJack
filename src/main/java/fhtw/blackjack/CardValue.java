@@ -79,6 +79,12 @@ public enum CardValue {
      *
      * @return The numeric value of the card, e.g., 2, 3, 10, or 11.
      */
+    /**
+     * Method description.
+     *
+     * @param args Description of parameters.
+     * @return Description of return value.
+     */
     public int getValue() {
         return value;
     }

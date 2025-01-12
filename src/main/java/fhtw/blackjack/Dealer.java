@@ -1,76 +1,57 @@
 package fhtw.blackjack;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
- * The {@code Dealer} class represents the dealer in a Blackjack game.
- * The dealer is responsible for managing the deck, handing out cards to players,
- * and overseeing the flow of the game.
- * This class extends the {@link Player} class and has additional responsibilities unique to the dealer role.
- *
+ * The {@code Dealer} class represents the dealer in the Blackjack game.
+ * The dealer plays automatically after all players have acted.
  */
-public class Dealer extends Player{
-    /**
-     * The minimum hand value at which the dealer will stop drawing cards.
-     * In Blackjack, the dealer must draw cards until reaching or exceeding this value.
-     */
-    int threshold = 17;
-    /**
-     * The deck of cards that the dealer manages and uses to hand out cards to players.
-     */
-    Deck deck;
-    /**
-     * The list of players in the game who receive cards from the dealer.
-     */
-    List<Player> players;
+public class Dealer extends Player {
+    private Deck deck;
 
     /**
-     * Constructs a new dealer with a specified hand of cards and a deck.
+     * Constructs a new Dealer with an empty hand and a specified deck.
      *
-     * @param handCards The initial hand of the dealer (typically empty at the start of the game).
-     * @param deck The deck of cards managed by the dealer.
+     * @param handCards the dealer's initial hand
+     * @param deck      the deck of cards used in the game
      */
     public Dealer(List<Card> handCards, Deck deck) {
         super("Dealer", handCards);
         this.deck = deck;
-        this.players = new ArrayList<>();
     }
 
     /**
-     * Shuffles the deck and deals two cards to each player in the game.
-     * The dealer draws cards from the top of the deck and gives one card to each player in each round.
+     * Distributes initial cards to all players.
+     *
+     * @param players the list of players to deal cards to
      */
-    public void handOutCards(){
-
-        Collections.shuffle(this.deck.getDeck());
-        for(int i = 0; i < 2; i++){
-            for(Player player : this.players) {
-                if(!this.deck.getDeck().isEmpty()){
-                    Card card = this.deck.getDeck().remove(0);
+    public void handOutCards(List<Player> players) {
+        for (int i = 0; i < 2; i++) { // Two cards per player
+            for (Player player : players) {
+                if (!deck.getDeck().isEmpty()) {
+                    Card card = deck.getDeck().remove(0);
                     player.getHandCards().add(card);
+                    System.out.println(player.getId() + " received card: " + card); // Debug log
                 }
             }
         }
-
+        System.out.println("Dealer hand after distribution: " + handCardstoString());
     }
 
     /**
-     * Adds a new player to the list of players managed by the dealer.
-     *
-     * @param player The player to be added to the game.
+     * Executes the dealer's turn according to Blackjack rules.
+     * The dealer must draw cards until reaching a total of 17 or higher.
      */
-    public void addPlayer(Player player){
-        this.players.add(player);
-    }
-
-    /**
-     * Returns the list of players currently in the game.
-     *
-     * @return A list of {@link Player} objects representing the players in the game.
-     */
-    public List<Player> getPlayers() {
-        return players;
+    public void playTurn() {
+        while (calculateCardSum() < 17) {
+            if (!deck.getDeck().isEmpty()) {
+                Card card = deck.getDeck().remove(0);
+                getHandCards().add(card);
+                System.out.println("Dealer drew a card: " + card);
+            } else {
+                break; // Stop if the deck is empty
+            }
+        }
+        System.out.println("Dealer's turn is over. Final hand: " + handCardstoString());
     }
 }
