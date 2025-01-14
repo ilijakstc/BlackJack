@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 import java.io.*;
 import java.net.Socket;
@@ -28,6 +29,8 @@ public class GuiController {
     private Button standButton;
     @FXML
     private Button startGameButton;
+    @FXML
+    private TextField playerIdField;
 
     private Socket socket;
     private ObjectOutputStream out;
@@ -63,6 +66,7 @@ public class GuiController {
 
         try {
             playerId = (String) in.readObject();
+            updatePlayerIdField();
             logMessage("You are " + playerId);
         } catch (ClassNotFoundException e) {
             logMessage("Error: Unable to receive player ID.");
@@ -144,8 +148,12 @@ public class GuiController {
                 hitButton.setDisable(true);
                 standButton.setDisable(true);
             });
-            logMessage("Waiting for other players...");
+            //logMessage("Waiting for other players...");
         }
+    }
+
+    private void updatePlayerIdField() {
+            playerIdField.setText(playerId);
     }
 
     private void logMessage(String message) {

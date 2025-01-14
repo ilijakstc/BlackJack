@@ -3,10 +3,7 @@ package fhtw.blackjack;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 /**
  * Manages the Blackjack game session and player connections.
@@ -119,12 +116,28 @@ public class GameServer {
 
         state.append("Dealer: ");
         if (gameSession.getDealer().getHandCards().size() > 1) {
-            state.append(gameSession.getDealer().getHandCards().get(0));
-            state.append(", [HIDDEN]");
+//            state.append(gameSession.getDealer().getHandCards().get(0));
+//            state.append(", [HIDDEN]");
+//
+//            int visibleSum = gameSession.getDealer().getHandCards().get(0).getValue();
+//            state.append(" (").append(visibleSum).append(" points)\n");
+
+            if (gameSession.areAllPlayersDone()) {
+                // Zeige alle Karten des Dealers an, wenn der Dealer dran ist
+                state.append(gameSession.getDealer().handCardstoString());
+                state.append(" (").append(gameSession.getDealer().calculateCardSum()).append(" points)\n");
+            } else {
+                // Zeige nur die erste Karte des Dealers an
+                state.append(gameSession.getDealer().getHandCards().get(0));
+                state.append(", [HIDDEN]");
+                int visibleSum = gameSession.getDealer().getHandCards().get(0).getValue();
+                state.append(" (").append(visibleSum).append(" points)\n");
+            }
         } else {
             state.append(gameSession.getDealer().handCardstoString());
+            state.append(" (").append(gameSession.getDealer().calculateCardSum()).append(" points)\n");
         }
-        state.append(" (").append(gameSession.getDealer().calculateCardSum()).append(" points)\n");
+        //state.append(" (").append(gameSession.getDealer().calculateCardSum()).append(" points)\n");
 
         for (HumanPlayer p : gameSession.getHumanPlayers()) {
             if (p.equals(player)) {
@@ -154,7 +167,11 @@ public class GameServer {
     }
 
     private void handleGameOver() {
+        ResultEvaluator result = new ResultEvaluator();
+        Map<String, String> results = result.evaluateWinner(gameSession, gameSession.getDealer(), gameSession.getHumanPlayers());
+        String resultText = result.formatResults(results);
         for (ClientHandler handler : clientHandlers) {
+            handler.sendUpdate(resultText);
             handler.sendUpdate("Game Over! Thanks for playing.");
         }
         System.out.println("Game Over! The server remains active for new games.");

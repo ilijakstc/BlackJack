@@ -8,7 +8,6 @@ import java.util.List;
  */
 public class HumanPlayer extends Player {
     private boolean hasStood = false;
-    private boolean isBusted = false;
     private GameSession gameSession;
 
     /**
@@ -53,9 +52,5 @@ public class HumanPlayer extends Player {
 
     public boolean hasStood() {
         return hasStood;
-    }
-
-    public boolean isBusted() {
-        return isBusted;
     }
 }

@@ -8,6 +8,7 @@ import java.util.List;
  */
 public abstract class Player {
     private String id;
+    private boolean isBusted = false;
     private List<Card> handCards;
 
     /**
@@ -63,5 +64,14 @@ public abstract class Player {
             sum += card.getValue(); // Properly adds the card's value to the sum
         }
         return sum;
+    }
+
+    public boolean isBusted() {
+        if (calculateCardSum() > 21) {
+            isBusted = true;
+        } else {
+            isBusted = false;
+        }
+        return isBusted;
     }
 }
