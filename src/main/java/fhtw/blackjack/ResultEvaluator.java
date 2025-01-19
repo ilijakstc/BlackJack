@@ -1,10 +1,17 @@
 package fhtw.blackjack;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ResultEvaluator {
+    private static final String RESULT_FILE = "game_results.txt";
 
     public Map<String, String> evaluateWinner(GameSession gameSession, Dealer dealer, List<HumanPlayer> players){
 
@@ -27,7 +34,7 @@ public class ResultEvaluator {
                 results.put(player.getId(), "Push");
             }
         }
-
+        saveResultsToFile(results, players.size());
         return results;
     }
 
@@ -41,4 +48,33 @@ public class ResultEvaluator {
         }
         return resultString.toString();
     }
+
+    /**
+     * Saves the game results to a file with a timestamp and player count.
+     *
+     * @param results     the map of results
+     * @param playerCount the number of players in the game
+     */
+    public void saveResultsToFile(Map<String, String> results, int playerCount) {
+        // Format the date and time
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+        // Build the output string
+        StringBuilder output = new StringBuilder();
+        output.append("Date and Time: ").append(timestamp).append("\n");
+        output.append("Player Count: ").append(playerCount).append("\n");
+        output.append("Results:\n");
+        output.append(formatResults(results)).append("\n");
+
+        // Save to file
+        try (FileWriter writer = new FileWriter(new File(RESULT_FILE))) {
+            writer.write(output.toString());
+            System.out.println("Results successfully saved to: " + Paths.get(RESULT_FILE).toAbsolutePath());
+        } catch (IOException e) {
+            System.err.println("Error writing results to file: " + e.getMessage());
+        }
+    }
 }
+
+
+
