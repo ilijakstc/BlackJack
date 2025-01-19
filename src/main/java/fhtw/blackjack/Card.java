@@ -4,9 +4,6 @@ package fhtw.blackjack;
  * The {@code Card} class represents a playing card with a specific value and suit.
  * A card consists of a card value ({@link CardValue}) and a card suit ({@link CardSuit}).
  */
-/**
- * Class description.
- */
 public class Card {
     /**
      * The value of the card, e.g., Two, Three, Ace, etc.
@@ -24,12 +21,6 @@ public class Card {
      * @param value The value of the card, e.g., Two, Three, Ace, etc.
      * @param suit  The suit of the card, e.g., Hearts, Spades, Diamonds, Clubs.
      */
-    /**
-     * Method description.
-     *
-     * @param args Description of parameters.
-     * @return Description of return value.
-     */
     public Card(CardValue value, CardSuit suit) {
         this.value = value;
         this.suit = suit;
@@ -39,12 +30,6 @@ public class Card {
      * Returns the value of this card.
      *
      * @return The numerical value of the card, e.g., 2 for Two, 10 for King, etc.
-     */
-    /**
-     * Method description.
-     *
-     * @param args Description of parameters.
-     * @return Description of return value.
      */
     public int getValue() {
         switch (value) {
@@ -64,12 +49,6 @@ public class Card {
      *
      * @return The card's value (e.g., "Two", "King", "Ace").
      */
-    /**
-     * Method description.
-     *
-     * @param args Description of parameters.
-     * @return Description of return value.
-     */
     public String getValueString() {
         return value.name();
     }
@@ -78,12 +57,6 @@ public class Card {
      * Returns the card's suit as a string.
      *
      * @return The card's suit (e.g., "Hearts", "Spades").
-     */
-    /**
-     * Method description.
-     *
-     * @param args Description of parameters.
-     * @return Description of return value.
      */
     public String getSuitString() {
         return suit.name();
@@ -95,12 +68,6 @@ public class Card {
      * @return A string representation of the card (e.g., "Ace of Hearts").
      */
     @Override
-/**
- * Method description.
- *
- * @param args Description of parameters.
- * @return Description of return value.
- */
     public String toString() {
         return value.name() + " of " + suit.name();
     }

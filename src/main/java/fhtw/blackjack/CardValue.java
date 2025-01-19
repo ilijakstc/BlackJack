@@ -4,7 +4,6 @@ package fhtw.blackjack;
  * The {@code CardValue} enum represents the possible values of a playing card in a Blackjack game.
  * Each card has an associated numeric value that is used to calculate the player's score.
  * This enum is used in the {@link Card} class to define the value of a card.
- *
  */
 public enum CardValue {
     /**
@@ -78,12 +77,6 @@ public enum CardValue {
      * Returns the numeric value of this card value.
      *
      * @return The numeric value of the card, e.g., 2, 3, 10, or 11.
-     */
-    /**
-     * Method description.
-     *
-     * @param args Description of parameters.
-     * @return Description of return value.
      */
     public int getValue() {
         return value;
