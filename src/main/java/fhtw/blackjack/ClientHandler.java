@@ -7,13 +7,46 @@ import java.net.Socket;
  * Handles communication between the server and a single client.
  */
 public class ClientHandler implements Runnable {
+
+    /**
+     * The socket for communicating with the client.
+     */
     private final Socket clientSocket;
+
+    /**
+     * The current game session in which the client is participating.
+     */
     private final GameSession gameSession;
+
+    /**
+     * The human player associated with this client.
+     */
     private final HumanPlayer player;
+
+    /**
+     * The game server managing the game logic and communication.
+     */
     private final GameServer server;
+
+    /**
+     * The output stream for sending data to the client.
+     */
     private ObjectOutputStream out;
+
+    /**
+     * The input stream for receiving data from the client.
+     */
     private ObjectInputStream in;
 
+    /**
+     * Constructs a new ClientHandler with a clientSocket, gameSession, humanPlayer and gameServer.
+     *
+     * @param clientSocket the clients socket
+     * @param gameSession the current gameSession
+     * @param player the humanPlayer which represents the actual client
+     * @param server the gameServer which handles the communication
+     * @throws IOException IOException is thrown when there is a problem with the stream
+     */
     public ClientHandler(Socket clientSocket, GameSession gameSession, HumanPlayer player, GameServer server) throws IOException {
         this.clientSocket = clientSocket;
         this.gameSession = gameSession;
@@ -24,6 +57,9 @@ public class ClientHandler implements Runnable {
     }
 
     @Override
+    /**
+     * Executes the run method and manages communication between the client and the server, processes player actions, and updates the game state accordingly.
+     */
     public void run() {
         try {
             out.writeObject(player.getId());
@@ -56,6 +92,10 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Checks the humanPlayer actions and executes them.
+     * @param action the action performed by the humanPlayer
+     */
     private void processAction(String action) {
         if (!gameSession.getCurrentTurnPlayer().equals(player)) {
             sendUpdate("Not your turn!");
@@ -88,11 +128,18 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Handles disconnection of client if exception in run()-method is thrown.
+     */
     private void handleDisconnection() {
         gameSession.getHumanPlayers().remove(player);
         server.broadcastGameState();
     }
 
+    /**
+     * Sends game update to connected clients.
+     * @param message update which is send to clients
+     */
     public void sendUpdate(String message) {
         try {
             out.writeObject(message);
@@ -101,6 +148,11 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Retrieves the corresponding humanPlayer
+     *
+     * @return the corresponding humanPlayer
+     */
     public HumanPlayer getPlayer() {
         return player;
     }

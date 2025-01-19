@@ -7,7 +7,13 @@ import java.util.List;
  * It extends the {@link Player} class and manages player-specific actions.
  */
 public class HumanPlayer extends Player {
+    /**
+     * Indicates whether the player has chosen to stand.
+     */
     private boolean hasStood = false;
+    /**
+     * The game session the player is part of, used to access the deck and game state.
+     */
     private GameSession gameSession;
 
     /**
@@ -50,6 +56,11 @@ public class HumanPlayer extends Player {
         System.out.println(getId() + " stands.");
     }
 
+    /**
+     * Checks if the player has chosen to stand.
+     *
+     * @return {@code true} if the player has stood, {@code false} otherwise
+     */
     public boolean hasStood() {
         return hasStood;
     }

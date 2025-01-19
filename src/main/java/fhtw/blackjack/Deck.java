@@ -9,6 +9,9 @@ import java.util.List;
  * It supports card shuffling and drawing operations.
  */
 public class Deck {
+    /**
+     * The List of cards used in the deck.
+     */
     private List<Card> deck;
 
     /**

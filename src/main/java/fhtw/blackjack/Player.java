@@ -7,8 +7,19 @@ import java.util.List;
  * including both human players and the dealer.
  */
 public abstract class Player {
+    /**
+     * The unique identifier for the player.
+     */
     private String id;
+
+    /**
+     * Indicates whether the player is "busted" (has a card total exceeding 21).
+     */
     private boolean isBusted = false;
+
+    /**
+     * The player's current hand of cards.
+     */
     private List<Card> handCards;
 
     /**
@@ -66,6 +77,12 @@ public abstract class Player {
         return sum;
     }
 
+    /**
+     * Checks if the player is "busted" (i.e., their card total exceeds 21).
+     * Updates the {@code isBusted} field based on the card total.
+     *
+     * @return {@code true} if the player is busted, {@code false} otherwise
+     */
     public boolean isBusted() {
         if (calculateCardSum() > 21) {
             isBusted = true;

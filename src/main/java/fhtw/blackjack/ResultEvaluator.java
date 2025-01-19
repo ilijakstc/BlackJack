@@ -10,9 +10,25 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The {@code ResultEvaluator} class evaluates the results of the game,
+ * determines winners, and saves the results to a file.
+ */
 public class ResultEvaluator {
+    /**
+     * The file where game results are saved.
+     */
     private static final String RESULT_FILE = "game_results.txt";
 
+    /**
+     * Evaluates the winner of the game based on the final card sums of the players and the dealer.
+     *
+     * @param gameSession the game session containing the players and game state
+     * @param dealer      the dealer of the game
+     * @param players     the list of human players
+     * @return a map of player IDs to their respective results (e.g., "won", "lost", "push")
+     * @throws IllegalStateException if the game session is not finished
+     */
     public Map<String, String> evaluateWinner(GameSession gameSession, Dealer dealer, List<HumanPlayer> players){
 
         Map<String, String> results = new LinkedHashMap<>();
@@ -29,7 +45,7 @@ public class ResultEvaluator {
             } else if (player.calculateCardSum() > dealer.calculateCardSum()) {
                 results.put(player.getId(), player.getId() + " won");
             } else if (player.calculateCardSum() < dealer.calculateCardSum()) {
-                results.put(player.getId(), "Delaer won");
+                results.put(player.getId(), "Dealer won");
             } else {
                 results.put(player.getId(), "Push");
             }
@@ -38,6 +54,12 @@ public class ResultEvaluator {
         return results;
     }
 
+    /**
+     * Formats the results map into a readable string format.
+     *
+     * @param results the map of player IDs to their results
+     * @return a string representation of the results
+     */
     public String formatResults(Map<String, String> results) {
         StringBuilder resultString = new StringBuilder();
         for (Map.Entry<String, String> entry : results.entrySet()) {

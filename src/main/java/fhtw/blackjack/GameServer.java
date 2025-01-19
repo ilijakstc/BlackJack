@@ -6,19 +6,44 @@ import java.net.Socket;
 import java.util.*;
 
 /**
- * Manages the Blackjack game session and player connections.
+ * The {@code GameServer} class manages the Blackjack game session and handles player connections.
+ * It is responsible for starting the server, accepting new players, managing the game state,
+ * and broadcasting updates to clients.
  */
 public class GameServer {
+    /**
+     * The server socket that listens for client connections.
+     */
     private ServerSocket serverSocket;
+    /**
+     * The current game session, managing the players and the dealer.
+     */
     private GameSession gameSession = new GameSession();
+    /**
+     * A list of {@code ClientHandler} objects for managing communication with connected clients.
+     */
     private List<ClientHandler> clientHandlers = new ArrayList<>();
+    /**
+     * The maximum number of players allowed in a game session.
+     */
     private final int MAX_PLAYERS = 7;
+    /**
+     * A timer for starting the game session after a set duration.
+     */
     private Timer timer;
+    /**
+     * A flag indicating whether the game start timer has been initiated.
+     */
     private boolean timerStarted = false;
+    /**
+     * A flag indicating whether the game session has started.
+     */
     private boolean gameStarted = false;
 
     /**
      * Starts the server and listens for client connections.
+     * If the game has not started and the maximum player limit is not reached,
+     * new connections are accepted and handled.
      *
      * @param port the port to listen on
      */
@@ -41,6 +66,11 @@ public class GameServer {
         }
     }
 
+    /**
+     * Handles a new client connection by creating a new player and starting a {@code ClientHandler}.
+     *
+     * @param clientSocket the socket for the new client
+     */
     private void handleNewConnection(Socket clientSocket) {
         try {
             String playerId = "Player" + (gameSession.getHumanPlayers().size() + 1);
@@ -65,6 +95,9 @@ public class GameServer {
         }
     }
 
+    /**
+     * Starts a timer to begin the game session after a delay if the maximum player count is not reached.
+     */
     private void startGameTimer() {
         timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -80,6 +113,9 @@ public class GameServer {
         System.out.println("Game timer started. The session will begin in 1 minute or when max players connect.");
     }
 
+    /**
+     * Starts the game session by distributing cards and initializing the game.
+     */
     private void startGameSession() {
         if (gameStarted) {
             return;
@@ -96,6 +132,9 @@ public class GameServer {
         System.out.println("Game session started with " + gameSession.getAllPlayers().size() + " players.");
     }
 
+    /**
+     * Sends the current game state to all connected clients.
+     */
     public synchronized void broadcastGameState() {
         for (ClientHandler handler : clientHandlers) {
             String personalizedState = generatePersonalizedGameState(handler.getPlayer());
@@ -111,16 +150,17 @@ public class GameServer {
         }
     }
 
+    /**
+     * Generates a personalized game state for the given player.
+     *
+     * @param player the player for whom the state is generated
+     * @return a string representation of the game state for the player
+     */
     private String generatePersonalizedGameState(HumanPlayer player) {
         StringBuilder state = new StringBuilder();
 
         state.append("Dealer: ");
         if (gameSession.getDealer().getHandCards().size() > 1) {
-//            state.append(gameSession.getDealer().getHandCards().get(0));
-//            state.append(", [HIDDEN]");
-//
-//            int visibleSum = gameSession.getDealer().getHandCards().get(0).getValue();
-//            state.append(" (").append(visibleSum).append(" points)\n");
 
             if (gameSession.areAllPlayersDone()) {
                 // Zeige alle Karten des Dealers an, wenn der Dealer dran ist
@@ -156,6 +196,9 @@ public class GameServer {
         return state.toString();
     }
 
+    /**
+     * Checks if all players are done and plays the dealer's turn if necessary.
+     */
     public void checkAndPlayDealerTurn() {
         if (gameSession.areAllPlayersDone()) {
             System.out.println("All players are done. Dealer is now playing.");
@@ -166,6 +209,9 @@ public class GameServer {
         }
     }
 
+    /**
+     * Handles the end of the game by evaluating results and notifying players.
+     */
     private void handleGameOver() {
         ResultEvaluator result = new ResultEvaluator();
         Map<String, String> results = result.evaluateWinner(gameSession, gameSession.getDealer(), gameSession.getHumanPlayers());
@@ -178,6 +224,11 @@ public class GameServer {
         clientHandlers.clear();
     }
 
+    /**
+     * The main entry point of the server application.
+     *
+     * @param args command-line arguments (not used)
+     */
     public static void main(String[] args) {
         GameServer server = new GameServer();
         server.start(12345);

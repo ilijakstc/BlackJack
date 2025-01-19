@@ -7,8 +7,17 @@ import java.util.List;
  * Manages the game session, including players, the dealer, and the deck.
  */
 public class GameSession {
+    /**
+     * The dealer managing the cards and playing the dealer's role in the game.
+     */
     private Dealer dealer;
+    /**
+     * The list of human players participating in the game session.
+     */
     private List<HumanPlayer> players = new ArrayList<>();
+    /**
+     * The deck of cards used in the game session.
+     */
     private Deck deck;
 
     /**

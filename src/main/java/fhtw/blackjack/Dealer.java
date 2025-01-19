@@ -7,6 +7,10 @@ import java.util.List;
  * The dealer plays automatically after all players have acted.
  */
 public class Dealer extends Player {
+
+    /**
+     * The deck of cards used in the game, managed by the dealer.
+     */
     private Deck deck;
 
     /**
