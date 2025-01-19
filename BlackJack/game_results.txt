@@ -1,0 +1,11 @@
+Date and Time: 2025-01-19 16:51:29
+Player Count: 7
+Results:
+Player1: Player1 won
+Player2: Player2 won
+Player3: Delaer won
+Player4: Delaer won
+Player5: Delaer won
+Player6: Delaer won
+Player7: Delaer won
+

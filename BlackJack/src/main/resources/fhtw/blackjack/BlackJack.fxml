@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+
+<?import javafx.scene.control.TextField?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="fhtw.blackjack.GuiController"
+            style="-fx-background-color: darkgreen;">
+    <!-- Section Pot -->
+    <VBox prefWidth="900" prefHeight="80" style="-fx-background-color: lightgray; -fx-padding: 12"
+          layoutX="32" layoutY="660" spacing="12">
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold" text=" "/>
+        <TextArea fx:id="potTextArea" prefWidth="700.0" prefHeight="40.0" editable="false"
+                  wrapText="true" style="-fx-font-size: 18;" text="Pot: 0.0 €"/>
+    </VBox>
+
+    <!-- Section Dealer -->
+    <VBox prefWidth="900" prefHeight="220" style="-fx-background-color: lightgray; -fx-padding: 12"
+          layoutX="32" layoutY="32" spacing="12">
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold">Dealer</Label>
+        <TextArea fx:id="dealerTextArea" prefWidth="480.0" prefHeight="120.0" editable="false"
+                  wrapText="true" text="Dealer Cards" style="-fx-font-size: 18;"/>
+        <HBox alignment="CENTER_RIGHT">
+            <TextArea fx:id="dealerCardSumTextArea" prefWidth="100" prefHeight="30" editable="false"
+                      style="-fx-font-size: 18;"/>
+        </HBox>
+    </VBox>
+
+    <!-- Section Player -->
+    <VBox prefWidth="900" prefHeight="220" style="-fx-background-color: lightgray; -fx-padding: 12"
+          layoutX="32" layoutY="280" spacing="12">
+
+        <HBox xmlns:fx="http://javafx.com/fxml" spacing="4" alignment="CENTER_LEFT">
+            <Label style="-fx-font-size: 24px; -fx-font-weight: bold" text="Player:"/>
+            <TextField fx:id="playerIdField" editable="false" style="-fx-font-size: 24px;"/>
+            <HBox xmlns:fx="http://javafx.com/fxml" spacing="12" alignment="CENTER_LEFT">
+                <Label style="-fx-font-size: 24px; -fx-font-weight: bold" text="Bet:"/>
+                <TextField fx:id="betField" style="-fx-font-size: 24px;"/>
+                <Button fx:id="setBetButton" text="SAVE" style="-fx-font-size: 24;" prefWidth="120" onAction="#setBetPressed"/>
+            </HBox>
+        </HBox>
+
+
+        <TextArea fx:id="playerTextArea" prefWidth="480.0" prefHeight="120.0" editable="false"
+                  wrapText="true" text="Player Cards" style="-fx-font-size: 18;"/>
+        <HBox alignment="CENTER_RIGHT" spacing="12">
+            <TextArea fx:id="playerCardSumTextArea" prefWidth="100" prefHeight="30" editable="false"
+                      style="-fx-font-size: 18;"/>
+            <Button fx:id="hitButton" prefWidth="100" prefHeight="80" text="HIT" onAction="#hitButtonPressed"
+                    style="-fx-font-size: 24;" disable="true"/>
+            <Button fx:id="standButton" prefWidth="150" prefHeight="80" text="STAND" onAction="#standButtonPressed"
+                    style="-fx-font-size: 24;" disable="true"/>
+        </HBox>
+    </VBox>
+
+    <!-- Log Area -->
+    <VBox prefWidth="900" prefHeight="120" style="-fx-background-color: lightgray; -fx-padding: 12"
+          layoutX="32" layoutY="520" spacing="12">
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold">Log</Label>
+        <TextArea fx:id="logTextArea" prefWidth="700.0" prefHeight="100.0" editable="false"
+                  wrapText="true" style="-fx-font-size: 16;"/>
+    </VBox>
+
+    <!-- Start Game Button -->
+    <Button fx:id="startGameButton" layoutX="32" layoutY="660" prefWidth="200" prefHeight="50"
+            text="Start Game" onAction="#startGamePressed" style="-fx-font-size: 24;"/>
+</AnchorPane>
